@@ -13,3 +13,9 @@ li{
 .file-node{
     cursor:pointer;
 }
+.files{
+    padding: 20px;
+}
+#terminal .xterm-rows {
+    line-height: normal !important;
+  }
