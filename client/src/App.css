@@ -16,6 +16,444 @@ li{
 .files{
     padding: 20px;
 }
+/* #terminal .xterm-rows {
+    line-height: normal !important;
+  } */
+   /* Simple Terminal Fixes */
+.playground-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.editor-container {
+    min-height: 60vh;
+    display: flex;
+    flex: 1;
+}
+
+.files {
+    padding: 20px;
+    min-width: 250px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e9ecef;
+}
+
+.editor {
+    flex: 1;
+}
+
+.terminal-container {
+    height: 40vh;
+    border-top: 1px solid #e9ecef;
+}
+
+li {
+    list-style: none;
+    line-height: 24px;
+}
+
+.file-node {
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.file-node:hover {
+    background-color: #e9ecef;
+}
+
+/* Terminal specific fixes */
 #terminal .xterm-rows {
     line-height: normal !important;
-  }
+}
+
+#terminal .xterm-viewport {
+    overflow-y: auto;
+}
+
+/* Make terminal responsive */
+@media (max-width: 768px) {
+    .editor-container {
+        flex-direction: column;
+    }
+    
+    .files {
+        min-width: unset;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .terminal-container {
+        height: 300px;
+    }
+}
+/* Enhanced Editor Styles */
+/* Enhanced Editor Styles */
+.playground-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.editor-container {
+    min-height: 60vh;
+    display: flex;
+    flex: 1;
+}
+
+/* File Explorer */
+.files {
+    padding: 0;
+    min-width: 250px;
+    background-color: #252526;
+    color: #cccccc;
+    border-right: 1px solid #3e3e42;
+    display: flex;
+    flex-direction: column;
+}
+
+.files-header {
+    padding: 12px 16px;
+    background-color: #2d2d30;
+    border-bottom: 1px solid #3e3e42;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.files-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #cccccc;
+}
+
+.loading-spinner {
+    animation: spin 1s linear infinite;
+    font-size: 14px;
+    color: #007acc;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Editor Section */
+.editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #1e1e1e;
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #2d2d30;
+    border-bottom: 1px solid #3e3e42;
+    min-height: 35px;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.file-path {
+    font-size: 13px;
+    color: #cccccc;
+    font-weight: 500;
+}
+
+.save-status {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.save-status.saved {
+    color: #4ec9b0;
+    background-color: rgba(78, 201, 176, 0.1);
+}
+
+.save-status.unsaved {
+    color: #f48771;
+    background-color: rgba(244, 135, 113, 0.1);
+}
+
+.editor-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-selector,
+.font-size-selector {
+    padding: 4px 8px;
+    font-size: 11px;
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border: 1px solid #464647;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.theme-selector:hover,
+.font-size-selector:hover {
+    background-color: #464647;
+}
+
+.format-btn {
+    padding: 4px 12px;
+    font-size: 11px;
+    background-color: #0e639c;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.format-btn:hover {
+    background-color: #1177bb;
+}
+
+.format-btn:active {
+    background-color: #0d5a8a;
+}
+
+.editor-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ACE Editor cursor fixes */
+.ace_editor {
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    line-height: 1.5 !important;
+}
+
+.ace_content {
+    cursor: text !important;
+}
+
+.ace_cursor {
+    color: #ffffff !important;
+    border-left: 2px solid !important;
+}
+
+.ace_gutter {
+    background-color: inherit !important;
+    border-right: 1px solid #3e3e42 !important;
+}
+
+.ace_gutter-cell {
+    padding-right: 8px !important;
+}
+
+/* Fix cursor alignment issues */
+.ace_text-input {
+    z-index: 0 !important;
+}
+
+.ace_layer {
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+}
+
+/* No file selected state */
+.no-file-selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #cccccc;
+}
+
+.welcome-message {
+    text-align: center;
+    max-width: 400px;
+}
+
+.welcome-message h2 {
+    color: #ffffff;
+    margin-bottom: 16px;
+    font-weight: 300;
+}
+
+.welcome-message p {
+    color: #969696;
+    margin-bottom: 24px;
+}
+
+.shortcuts {
+    text-align: left;
+}
+
+.shortcuts h4 {
+    color: #ffffff;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.shortcuts ul {
+    list-style: none;
+    padding: 0;
+}
+
+.shortcuts li {
+    margin-bottom: 8px;
+    color: #969696;
+    font-size: 13px;
+}
+
+.shortcuts kbd {
+    background-color: #3c3c3c;
+    border: 1px solid #464647;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 11px;
+    color: #cccccc;
+    font-family: monospace;
+}
+
+/* File Tree Styles */
+li {
+    list-style: none;
+    line-height: 22px;
+}
+
+.file-node {
+    cursor: pointer;
+    padding: 2px 8px 2px 16px;
+    margin: 1px 8px;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #cccccc;
+    position: relative;
+}
+
+.file-node:hover {
+    background-color: #2a2d2e;
+}
+
+.file-node:before {
+    content: "📄";
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+/* Directory styling - you can enhance this in FileTreeNode component */
+p:not(.file-node) {
+    cursor: pointer;
+    padding: 2px 8px 2px 16px;
+    margin: 1px 8px;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #cccccc;
+    font-weight: 500;
+}
+
+p:not(.file-node):hover {
+    background-color: #2a2d2e;
+}
+
+p:not(.file-node):before {
+    content: "📁";
+    margin-right: 6px;
+    font-size: 11px;
+}
+
+/* Terminal Container */
+.terminal-container {
+    height: 40vh;
+    border-top: 1px solid #3e3e42;
+    background-color: #1e1e1e;
+}
+
+/* Terminal fixes */
+#terminal .xterm-rows {
+    line-height: normal !important;
+}
+
+#terminal .xterm-viewport {
+    overflow-y: auto;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #464647;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .editor-container {
+        flex-direction: column;
+    }
+    
+    .files {
+        min-width: unset;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #3e3e42;
+    }
+    
+    .editor-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+    
+    .editor-controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .terminal-container {
+        height: 300px;
+    }
+    
+    .welcome-message {
+        padding: 20px;
+    }
+}
+
+/* Focus states */
+.theme-selector:focus,
+.font-size-selector:focus,
+.format-btn:focus {
+    outline: 1px solid #007acc;
+    outline-offset: 1px;
+}
+
+/* Loading state */
+.editor.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}

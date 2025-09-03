@@ -1,2 +1,1 @@
-int a = 4
-int b = 5
+const m = 2;
