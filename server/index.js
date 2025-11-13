@@ -22,7 +22,8 @@ chokidar.watch("./user").on("all", (event, path) => {
 
 io.on("connection", (socket) => {
   console.log(`Socket connected`, socket.id);
-  const ptyProcess = pty.spawn("bash", [], {
+  const shell = process.platform === "win32" ? "powershell.exe" : "/bin/zsh";
+  const ptyProcess = pty.spawn(shell, [], {
     name: "xterm-color",
     cols: 80,
     rows: 24,
@@ -37,7 +38,7 @@ io.on("connection", (socket) => {
     console.log("Terminal process exited, restarting...");
     terminalProcesses.delete(socket.id);
     setTimeout(() => {
-      const newProcess = pty.spawn("bash", [], {
+      const newProcess = pty.spawn(shell, [], {
         name: "xterm-color",
         cols: 80,
         rows: 24,

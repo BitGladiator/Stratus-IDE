@@ -16,28 +16,32 @@ const Terminal = () => {
     const term = new XTerminal({
       rows: 24,
       cols: 80,
-      fontFamily: "monospace",
+      fontFamily: '"Courier New", Courier, monospace',
       fontSize: 14,
-      lineHeight: 1.2,
+      lineHeight: 1,
+      letterSpacing: 0,
       cursorBlink: true,
       theme: {
-        background: '#1e1e1e',
-        foreground: '#ffffff',
-        cursor: '#ffffff'
+          background: '#1e1e1e',
+          foreground: '#ffffff',
+          cursor: '#ffffff'
       },
       scrollback: 1000,
-    });
+      allowProposedApi: true,
+  });
 
     term.open(terminalRef.current);
     terminalInstance.current = term;
     const resizeTerminal = () => {
       const rect = terminalRef.current.getBoundingClientRect();
-      const cols = Math.floor(rect.width / 9); 
-      const rows = Math.floor(rect.height / 20); 
+      const charWidth = 8.4; 
+      const charHeight = 18.6; 
+      const cols = Math.floor(rect.width / charWidth); 
+      const rows = Math.floor(rect.height / charHeight); 
       if (cols > 10 && rows > 5) {
-        term.resize(cols, rows);
+          term.resize(cols, rows);
       }
-    };
+  };
 
     setTimeout(resizeTerminal, 100);
     window.addEventListener('resize', resizeTerminal);

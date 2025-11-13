@@ -253,10 +253,11 @@ function App() {
                   useWorker: false,
                   wrap: false,
                   foldStyle: "markbegin",
-                  fontFamily: '"Monaco", "Menlo", "Consolas", monospace', // Use system monospace
+                  fontFamily: '"Courier New", Courier, monospace',
                   fixedWidthGutter: true,
-                  scrollPastEnd: 0.5
-                }}
+                  scrollPastEnd: 0.5,
+                  useSoftTabs: true
+              }}
                 editorProps={{
                   $blockScrolling: Infinity
                 }}
@@ -270,9 +271,10 @@ function App() {
                   }, 100);
                 }}
                 style={{
-                  fontFamily: '"Monaco", "Menlo", "Consolas", monospace',
-                  lineHeight: '1.5'
-                }}
+                  fontFamily: '"Courier New", Courier, monospace',
+                  lineHeight: '1.2',
+                  letterSpacing: '0'
+              }}
               />
             ) : (
               <div className="no-file-selected">
