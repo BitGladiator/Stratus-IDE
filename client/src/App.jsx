@@ -4,8 +4,6 @@ import Terminal from "./components/terminal";
 import FileTree from "./components/tree";
 import socket from "./socket";
 import AceEditor from "react-ace";
-
-// Import ACE modes and themes
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-html";
@@ -16,14 +14,12 @@ import "ace-builds/src-noconflict/mode-xml";
 import "ace-builds/src-noconflict/mode-yaml";
 import "ace-builds/src-noconflict/mode-sh";
 
-// Import themes
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "ace-builds/src-noconflict/theme-solarized_dark";
 import "ace-builds/src-noconflict/theme-solarized_light";
 
-// Import extensions
 import "ace-builds/src-noconflict/ext-language_tools";
 import "ace-builds/src-noconflict/ext-searchbox";
 
@@ -37,8 +33,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   
   const isSaved = selectedFileContent === code;
-
-  // Get file mode based on extension
   const getFileMode = (filePath) => {
     if (!filePath) return "text";
     
@@ -105,12 +99,9 @@ function App() {
       setIsLoading(false);
     }
   }, [selectedFile]);
-
-  // Format code function
   const formatCode = () => {
     if (!code) return;
-    
-    // Simple formatting for JavaScript/JSON
+
     if (getFileMode(selectedFile) === 'javascript' || getFileMode(selectedFile) === 'json') {
       try {
         const formatted = JSON.stringify(JSON.parse(code), null, 2);
@@ -120,8 +111,6 @@ function App() {
       }
     }
   };
-
-  // Save shortcut
   const handleKeyDown = (e) => {
     if (e.ctrlKey || e.metaKey) {
       if (e.key === 's') {
@@ -135,7 +124,6 @@ function App() {
       }
       if (e.key === 'f') {
         e.preventDefault();
-        // ACE editor's find will be triggered automatically
       }
     }
   };
@@ -161,8 +149,6 @@ function App() {
       socket.off("file:refresh", getFileTree);
     };
   }, []);
-
-  // Auto-save with debouncing
   useEffect(() => {
     if (code && !isSaved && selectedFile) {
       const timer = setTimeout(() => {
@@ -170,7 +156,7 @@ function App() {
           path: selectedFile,
           content: code,
         });
-      }, 2000); // Reduced to 2 seconds
+      }, 2000);
       
       return () => clearTimeout(timer);
     }
@@ -193,7 +179,6 @@ function App() {
   return (
     <div className="playground-container">
       <div className="editor-container">
-        {/* File Explorer */}
         <div className="files">
           <div className="files-header">
             <h3>Explorer</h3>
@@ -204,10 +189,7 @@ function App() {
             tree={fileTree}
           />
         </div>
-
-        {/* Editor Section */}
         <div className="editor">
-          {/* Editor Header */}
           {selectedFile && (
             <div className="editor-header">
               <div className="file-info">
@@ -220,7 +202,6 @@ function App() {
               </div>
               
               <div className="editor-controls">
-                {/* Theme Selector */}
                 <select
                   value={editorTheme}
                   onChange={(e) => setEditorTheme(e.target.value)}
@@ -232,9 +213,7 @@ function App() {
                   <option value="solarized_dark">Solarized Dark</option>
                   <option value="solarized_light">Solarized Light</option>
                 </select>
-
-                {/* Font Size */}
-                <select
+                  <select
                   value={fontSize}
                   onChange={(e) => setFontSize(Number(e.target.value))}
                   className="font-size-selector"
@@ -245,16 +224,12 @@ function App() {
                   <option value={18}>18px</option>
                   <option value={20}>20px</option>
                 </select>
-
-                {/* Format Button */}
                 <button onClick={formatCode} className="format-btn">
                   Format
                 </button>
               </div>
             </div>
           )}
-
-          {/* Editor */}
           <div className="editor-wrapper">
             {selectedFile ? (
               <AceEditor
@@ -286,12 +261,9 @@ function App() {
                   $blockScrolling: Infinity
                 }}
                 onLoad={(editor) => {
-                  // Fix cursor alignment issues
                   editor.renderer.setPrintMarginColumn(false);
                   editor.renderer.setShowPrintMargin(false);
                   editor.setShowFoldWidgets(false);
-                  
-                  // Force re-render to fix cursor position
                   setTimeout(() => {
                     editor.renderer.updateFull();
                     editor.resize();
@@ -321,8 +293,6 @@ function App() {
           </div>
         </div>
       </div>
-
-      {/* Terminal */}
       <div className="terminal-container">
         <Terminal />
       </div>

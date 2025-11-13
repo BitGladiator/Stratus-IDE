@@ -30,27 +30,20 @@ const Terminal = () => {
 
     term.open(terminalRef.current);
     terminalInstance.current = term;
-
-    // Auto-resize terminal
     const resizeTerminal = () => {
       const rect = terminalRef.current.getBoundingClientRect();
-      const cols = Math.floor(rect.width / 9); // Approximate character width
-      const rows = Math.floor(rect.height / 20); // Approximate line height
+      const cols = Math.floor(rect.width / 9); 
+      const rows = Math.floor(rect.height / 20); 
       if (cols > 10 && rows > 5) {
         term.resize(cols, rows);
       }
     };
 
-    // Initial resize
     setTimeout(resizeTerminal, 100);
     window.addEventListener('resize', resizeTerminal);
-
-    // Handle terminal input
     term.onData((data) => {
       socket.emit("terminal:write", data);
     });
-
-    // Handle terminal data from server
     const handleTerminalData = (data) => {
       term.write(data);
     };
@@ -91,7 +84,6 @@ const Terminal = () => {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Simple header */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -120,8 +112,6 @@ const Terminal = () => {
           Clear
         </button>
       </div>
-
-      {/* Terminal */}
       <div 
         ref={terminalRef} 
         id="terminal" 
