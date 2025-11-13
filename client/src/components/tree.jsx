@@ -28,7 +28,6 @@ const FileTreeNode = ({ fileName, nodes, onSelect, path }) => {
     </div>
   );
 };
-
 const FileTree = ({ tree, onSelect }) => {
   return <FileTreeNode onSelect={onSelect} fileName="/" path="" nodes={tree} />;
 };

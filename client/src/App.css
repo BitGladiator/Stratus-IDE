@@ -1,96 +1,8 @@
-.playground-container{
-    display:flex;
-    flex-direction: column;
-}
-.editor-container{
-    min-height:60vh;
-    display:flex;
-}
-li{
-    list-style: none;
-    line-height: 24px;
-}
-.file-node{
-    cursor:pointer;
-}
-.files{
-    padding: 20px;
-}
-/* #terminal .xterm-rows {
-    line-height: normal !important;
-  } */
-   /* Simple Terminal Fixes */
-.playground-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+
+* {
+    box-sizing: border-box;
 }
 
-.editor-container {
-    min-height: 60vh;
-    display: flex;
-    flex: 1;
-}
-
-.files {
-    padding: 20px;
-    min-width: 250px;
-    background-color: #f8f9fa;
-    border-right: 1px solid #e9ecef;
-}
-
-.editor {
-    flex: 1;
-}
-
-.terminal-container {
-    height: 40vh;
-    border-top: 1px solid #e9ecef;
-}
-
-li {
-    list-style: none;
-    line-height: 24px;
-}
-
-.file-node {
-    cursor: pointer;
-    padding: 2px 4px;
-    border-radius: 3px;
-}
-
-.file-node:hover {
-    background-color: #e9ecef;
-}
-
-/* Terminal specific fixes */
-#terminal .xterm-rows {
-    line-height: normal !important;
-}
-
-#terminal .xterm-viewport {
-    overflow-y: auto;
-}
-
-/* Make terminal responsive */
-@media (max-width: 768px) {
-    .editor-container {
-        flex-direction: column;
-    }
-    
-    .files {
-        min-width: unset;
-        max-height: 200px;
-        border-right: none;
-        border-bottom: 1px solid #e9ecef;
-    }
-    
-    .terminal-container {
-        height: 300px;
-    }
-}
-/* Enhanced Editor Styles */
-/* Enhanced Editor Styles */
 .playground-container {
     display: flex;
     flex-direction: column;
@@ -104,7 +16,7 @@ li {
     flex: 1;
 }
 
-/* File Explorer */
+
 .files {
     padding: 0;
     min-width: 250px;
@@ -143,8 +55,6 @@ li {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-
-/* Editor Section */
 .editor {
     flex: 1;
     display: flex;
@@ -235,21 +145,41 @@ li {
 .editor-wrapper {
     flex: 1;
     overflow: hidden;
+    position: relative;
 }
 
-/* ACE Editor cursor fixes */
 .ace_editor {
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
     line-height: 1.5 !important;
+    letter-spacing: 0 !important;
 }
-
-.ace_content {
-    cursor: text !important;
+.ace_editor,
+.ace_text-layer,
+.ace_line,
+.ace_line_group {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    font-variant-ligatures: none !important;
+    font-feature-settings: normal !important;
+    letter-spacing: 0 !important;
 }
-
 .ace_cursor {
     color: #ffffff !important;
-    border-left: 2px solid !important;
+    border-left: 2px solid #ffffff !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    width: 0 !important;
+}
+.ace_text-layer {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+    text-rendering: optimizeLegibility !important;
+}
+.ace_cursor-layer {
+    z-index: 4 !important;
+}
+
+.ace_line {
+    line-height: inherit !important;
 }
 
 .ace_gutter {
@@ -261,16 +191,43 @@ li {
     padding-right: 8px !important;
 }
 
-/* Fix cursor alignment issues */
 .ace_text-input {
+    position: absolute !important;
     z-index: 0 !important;
+    width: 0.5em !important;
+    height: 1em !important;
+    opacity: 0 !important;
+    background: transparent !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    border: none !important;
+    resize: none !important;
+    outline: none !important;
+    overflow: hidden !important;
+    font: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-indent: -9999em !important;
+}
+
+.ace_content {
+    cursor: text !important;
+    position: relative !important;
+}
+.ace_scroller {
+    position: absolute !important;
+    overflow: hidden !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    background-color: transparent !important;
 }
 
 .ace_layer {
-    font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
-/* No file selected state */
 .no-file-selected {
     display: flex;
     align-items: center;
@@ -316,6 +273,7 @@ li {
     margin-bottom: 8px;
     color: #969696;
     font-size: 13px;
+    line-height: 24px;
 }
 
 .shortcuts kbd {
@@ -328,7 +286,6 @@ li {
     font-family: monospace;
 }
 
-/* File Tree Styles */
 li {
     list-style: none;
     line-height: 22px;
@@ -354,7 +311,6 @@ li {
     font-size: 11px;
 }
 
-/* Directory styling - you can enhance this in FileTreeNode component */
 p:not(.file-node) {
     cursor: pointer;
     padding: 2px 8px 2px 16px;
@@ -382,7 +338,6 @@ p:not(.file-node):before {
     background-color: #1e1e1e;
 }
 
-/* Terminal fixes */
 #terminal .xterm-rows {
     line-height: normal !important;
 }
@@ -390,8 +345,6 @@ p:not(.file-node):before {
 #terminal .xterm-viewport {
     overflow-y: auto;
 }
-
-/* Scrollbars */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -410,7 +363,7 @@ p:not(.file-node):before {
     background: #5a5a5a;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .editor-container {
         flex-direction: column;
@@ -443,16 +396,12 @@ p:not(.file-node):before {
         padding: 20px;
     }
 }
-
-/* Focus states */
 .theme-selector:focus,
 .font-size-selector:focus,
 .format-btn:focus {
     outline: 1px solid #007acc;
     outline-offset: 1px;
 }
-
-/* Loading state */
 .editor.loading {
     opacity: 0.6;
     pointer-events: none;

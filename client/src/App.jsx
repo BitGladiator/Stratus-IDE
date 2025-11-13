@@ -31,35 +31,35 @@ function App() {
   const [editorTheme, setEditorTheme] = useState("monokai");
   const [fontSize, setFontSize] = useState(14);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const isSaved = selectedFileContent === code;
   const getFileMode = (filePath) => {
     if (!filePath) return "text";
-    
-    const extension = filePath.split('.').pop().toLowerCase();
-    
+
+    const extension = filePath.split(".").pop().toLowerCase();
+
     const modeMap = {
-      'js': 'javascript',
-      'jsx': 'javascript',
-      'ts': 'javascript',
-      'tsx': 'javascript',
-      'py': 'python',
-      'html': 'html',
-      'htm': 'html',
-      'css': 'css',
-      'scss': 'css',
-      'sass': 'css',
-      'json': 'json',
-      'md': 'markdown',
-      'xml': 'xml',
-      'yml': 'yaml',
-      'yaml': 'yaml',
-      'sh': 'sh',
-      'bash': 'sh',
-      'txt': 'text'
+      js: "javascript",
+      jsx: "javascript",
+      ts: "javascript",
+      tsx: "javascript",
+      py: "python",
+      html: "html",
+      htm: "html",
+      css: "css",
+      scss: "css",
+      sass: "css",
+      json: "json",
+      md: "markdown",
+      xml: "xml",
+      yml: "yaml",
+      yaml: "yaml",
+      sh: "sh",
+      bash: "sh",
+      txt: "text",
     };
-    
-    return modeMap[extension] || 'text';
+
+    return modeMap[extension] || "text";
   };
 
   const getFileTree = async () => {
@@ -71,7 +71,7 @@ function App() {
         setFileTree(result.tree);
       }
     } catch (error) {
-      console.error('Error fetching file tree:', error);
+      console.error("Error fetching file tree:", error);
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +79,7 @@ function App() {
 
   const getFileContents = useCallback(async () => {
     if (!selectedFile) return;
-    
+
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -89,11 +89,11 @@ function App() {
         const result = await response.json();
         setSelectedFileContent(result.content);
       } else {
-        console.error('Failed to load file');
+        console.error("Failed to load file");
         setSelectedFileContent("");
       }
     } catch (error) {
-      console.error('Error fetching file content:', error);
+      console.error("Error fetching file content:", error);
       setSelectedFileContent("");
     } finally {
       setIsLoading(false);
@@ -102,18 +102,21 @@ function App() {
   const formatCode = () => {
     if (!code) return;
 
-    if (getFileMode(selectedFile) === 'javascript' || getFileMode(selectedFile) === 'json') {
+    if (
+      getFileMode(selectedFile) === "javascript" ||
+      getFileMode(selectedFile) === "json"
+    ) {
       try {
         const formatted = JSON.stringify(JSON.parse(code), null, 2);
         setCode(formatted);
       } catch (error) {
-        console.log('Could not format as JSON, skipping...');
+        console.log("Could not format as JSON, skipping...");
       }
     }
   };
   const handleKeyDown = (e) => {
     if (e.ctrlKey || e.metaKey) {
-      if (e.key === 's') {
+      if (e.key === "s") {
         e.preventDefault();
         if (!isSaved && selectedFile) {
           socket.emit("file:change", {
@@ -122,15 +125,15 @@ function App() {
           });
         }
       }
-      if (e.key === 'f') {
+      if (e.key === "f") {
         e.preventDefault();
       }
     }
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [code, selectedFile, isSaved]);
 
   useEffect(() => {
@@ -157,7 +160,7 @@ function App() {
           content: code,
         });
       }, 2000);
-      
+
       return () => clearTimeout(timer);
     }
   }, [code, selectedFile, isSaved]);
@@ -184,10 +187,7 @@ function App() {
             <h3>Explorer</h3>
             {isLoading && <div className="loading-spinner">⟳</div>}
           </div>
-          <FileTree
-            onSelect={handleFileSelect}
-            tree={fileTree}
-          />
+          <FileTree onSelect={handleFileSelect} tree={fileTree} />
         </div>
         <div className="editor">
           {selectedFile && (
@@ -196,11 +196,13 @@ function App() {
                 <span className="file-path">
                   {selectedFile.replaceAll("/", " › ")}
                 </span>
-                <span className={`save-status ${isSaved ? 'saved' : 'unsaved'}`}>
+                <span
+                  className={`save-status ${isSaved ? "saved" : "unsaved"}`}
+                >
                   {isSaved ? "✓ Saved" : "● Unsaved"}
                 </span>
               </div>
-              
+
               <div className="editor-controls">
                 <select
                   value={editorTheme}
@@ -213,7 +215,7 @@ function App() {
                   <option value="solarized_dark">Solarized Dark</option>
                   <option value="solarized_light">Solarized Light</option>
                 </select>
-                  <select
+                <select
                   value={fontSize}
                   onChange={(e) => setFontSize(Number(e.target.value))}
                   className="font-size-selector"
@@ -232,7 +234,7 @@ function App() {
           )}
           <div className="editor-wrapper">
             {selectedFile ? (
-              <AceEditor
+                <AceEditor
                 value={code}
                 onChange={setCode}
                 mode={getFileMode(selectedFile)}
@@ -253,28 +255,45 @@ function App() {
                   useWorker: false,
                   wrap: false,
                   foldStyle: "markbegin",
-                  fontFamily: '"Courier New", Courier, monospace',
+                  fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                  fontSize: fontSize,
                   fixedWidthGutter: true,
                   scrollPastEnd: 0.5,
-                  useSoftTabs: true
-              }}
+                  useSoftTabs: true,
+                  animatedScroll: false,
+                  displayIndentGuides: false,
+                  fadeFoldWidgets: false,
+                  showFoldWidgets: false,
+                  showInvisibles: false,
+                  showGutter: true,
+                }}
                 editorProps={{
-                  $blockScrolling: Infinity
+                  $blockScrolling: Infinity,
                 }}
                 onLoad={(editor) => {
                   editor.renderer.setPrintMarginColumn(false);
                   editor.renderer.setShowPrintMargin(false);
                   editor.setShowFoldWidgets(false);
+                  editor.renderer.updateCharacterSize();
                   setTimeout(() => {
-                    editor.renderer.updateFull();
-                    editor.resize();
+                    editor.renderer.updateFull(true);
+                    editor.resize(true);
+                    editor.renderer.$textLayer.checkForSizeChanges();
+                    editor.renderer.$cursorLayer.update(
+                      editor.renderer.layerConfig
+                    );
                   }, 100);
+                  editor.on("change", () => {
+                    setTimeout(() => {
+                      editor.renderer.$textLayer.checkForSizeChanges();
+                    }, 10);
+                  });
                 }}
                 style={{
-                  fontFamily: '"Courier New", Courier, monospace',
-                  lineHeight: '1.2',
-                  letterSpacing: '0'
-              }}
+                  fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                  lineHeight: "1.5",
+                  letterSpacing: "0",
+                }}
               />
             ) : (
               <div className="no-file-selected">
@@ -284,9 +303,15 @@ function App() {
                   <div className="shortcuts">
                     <h4>Keyboard Shortcuts:</h4>
                     <ul>
-                      <li><kbd>Ctrl+S</kbd> - Save file</li>
-                      <li><kbd>Ctrl+F</kbd> - Find in file</li>
-                      <li><kbd>Ctrl+H</kbd> - Find and replace</li>
+                      <li>
+                        <kbd>Ctrl+S</kbd> - Save file
+                      </li>
+                      <li>
+                        <kbd>Ctrl+F</kbd> - Find in file
+                      </li>
+                      <li>
+                        <kbd>Ctrl+H</kbd> - Find and replace
+                      </li>
                     </ul>
                   </div>
                 </div>
